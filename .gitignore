@@ -1,9 +1,7 @@
+.*.swp
 *.swp
-*.*.swp
 logs
 target
-activator
-activator-launch-1.2.10.jar
 /.idea
 /.idea_modules
 /.classpath
