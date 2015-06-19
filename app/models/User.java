@@ -31,11 +31,13 @@ public class User extends Model {
     return Json.toJson(users);
     }
 
-    public static void create(Forms.newUser newUser) {
+    public static JsonNode create(Forms.newUser newUser) {
     User user = new User();
     user.id = newUser.id;
     user.name = newUser.name;
     user.save();
+
+    return Json.toJson(newUser);
 
     }
 
