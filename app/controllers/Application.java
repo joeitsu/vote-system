@@ -24,23 +24,9 @@ import play.api.mvc.*;
 public class Application extends Controller {
 
     static Form<Forms.newUser> userForm = Form.form(Forms.newUser.class);
-    static Form<Forms.StandForm> standForm = Form.form(Forms.StandForm.class);
-
-    /** indexへのレンダリング */
-    public Result index() {
-        return ok(index.render(Stand.all(),standForm));
-    }
 
     public Result vote() {
         return redirect(routes.Application.newUser());
-    }
-
-    public Result addStand() {
-	    Form<Forms.StandForm>filledForm = standForm.bindFromRequest();
-	    /**変数でフォームに入力した内容を返す*/
-        JsonNode getInput = Stand.create(filledForm.get());
-
-        return ok(seclet.render(getInput));
     }
 
     public Result newUser() {

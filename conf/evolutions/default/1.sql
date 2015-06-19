@@ -6,7 +6,7 @@
 create table user (
   id                        bigint not null,
   name                      varchar(255),
-  standid                   bigint,
+  stand_id                  bigint,
   constraint pk_user primary key (id))
 ;
 
