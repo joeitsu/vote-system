@@ -3,14 +3,13 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /vote                           controllers.Application.vote()
 
 # Users
 
-GET     /add                        controllers.Application.newUser()
-POST    /adduser                    controllers.Application.addUser()
-GET     /allusers                   controllers.Application.allUsers()
-
+GET     /vote/add                        controllers.Application.newUser()
+POST    /vote/adduser                    controllers.Application.addUser()
+GET     /vote/allusers                   controllers.Application.allUsers()
 
 
 

@@ -17,7 +17,8 @@ public class Application extends Controller {
 
 	static Form<Forms.newUser> userForm = Form.form(Forms.newUser.class);
 
-    public Result index() {
+
+    public Result vote() {
 
     return redirect(routes.Application.newUser());
 
@@ -44,4 +45,8 @@ public class Application extends Controller {
     return ok(showUser.render(User.all()));
 
     }
+
+
+
+
 }

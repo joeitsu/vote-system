@@ -15,9 +15,11 @@ import controllers.*;
 public class User extends Model {
 	@Id
     public Long id;
+
     @Required
     public String name;
-    public Long standid;
+    public Long stand_id;
+
 
 
     public static Finder<Long,User>find = new Finder(Long.class, User.class);
@@ -36,6 +38,9 @@ public class User extends Model {
     user.save();
 
     }
+
+
+
 }
 
 
