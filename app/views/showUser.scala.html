@@ -1,0 +1,19 @@
+@(users: com.fasterxml.jackson.databind.JsonNode)
+
+@main("投票システム"){
+
+<h1>投票一覧</h1>
+
+
+@for(user <- users.findValuesAsText("name").toArray()) {
+<table>
+<tr>
+  <th>投票者氏名</th>
+  <li>
+  @user
+  </li>
+  </tr>
+  </table>
+</div>
+ }
+}
