@@ -1,0 +1,8 @@
+@(stands: com.fasterxml.jackson.databind.JsonNode)
+
+
+@main("さんぷる") {
+<p>以下の内容で保存しました。</p>
+<p>名前：@stands.findValuesAsText("standname")</p>
+<p>役職：@stands.findValuesAsText("post")</p>
+}
