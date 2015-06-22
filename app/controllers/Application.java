@@ -35,18 +35,19 @@ public class Application extends Controller {
     }
 
     public Result newUser() {
-        return ok(vote.render(userForm));
+
+        return ok(vote.render(userForm,Stand.all()));
     }
 
     public Result addUser() {
         Form<Forms.newUser> filledForm = userForm.bindFromRequest();
-        User.create(filledForm.get());
+       JsonNode getInput = User.create(filledForm.get());
 
         return redirect(routes.Application.allUsers());
     }
 
     public Result allUsers() {
-        return ok(showUser.render(User.all()));
+        return ok(showUser.render(User.all(),Stand.all()));
     }
     /**変数でフォームに入力した内容を返す*/
     public Result addStand() {
@@ -54,5 +55,5 @@ public class Application extends Controller {
         JsonNode getInput = Stand.create(filledForm.get());
 
         return ok(seclet.render(getInput));
-    }
+   }
 }

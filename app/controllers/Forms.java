@@ -12,7 +12,7 @@ import play.api.mvc.*;
 public class Forms extends Controller {
 
     public static class newUser {
-	    public Long id;
+	    public Long stand_id;
 	    public String name;
 	}
 

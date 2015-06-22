@@ -12,8 +12,8 @@ GET     /vote/add                        controllers.Application.newUser()
 POST    /vote/adduser                    controllers.Application.addUser()
 GET     /vote/allusers                   controllers.Application.allUsers()
 
-GET     /                             controllers.Application.index()
-POST    /addStand                     controllers.Application.addStand()
+GET     /                                controllers.Application.index()
+POST    /addStand                        controllers.Application.addStand()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

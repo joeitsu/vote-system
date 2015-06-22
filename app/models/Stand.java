@@ -42,4 +42,6 @@ public class Stand extends Model {
 
         return Json.toJson(stand);
     }
+
+
 }
