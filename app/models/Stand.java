@@ -43,5 +43,12 @@ public class Stand extends Model {
         return Json.toJson(stand);
     }
 
+    public static Long checkId (String standname) {
+
+    	Stand stand = find.where().eq("standname", standname).findUnique();
+
+    	return stand.id;
+    }
+
 
 }

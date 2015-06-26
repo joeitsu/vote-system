@@ -32,17 +32,22 @@ public class User extends Model {
     return Json.toJson(users);
     }
 
-    public static JsonNode create(Forms.newUser newUser) {
+    public static User create(String name,Long id) {
     User user = new User();
-    user.name = newUser.name;
-    user.stand_id = newUser.stand_id;
+    user.name = name ;
+    user.stand_id = id ;
     user.save();
 
-    return Json.toJson(newUser);
+    return user;
 
     }
+
+
+
+
+
+
+
+
+
  }
-
-
-
-

@@ -1,4 +1,5 @@
-@(userForm: Form[Forms.newUser],stands: com.fasterxml.jackson.databind.JsonNode)
+@(userForm: Form[Forms.newUser],
+stands: com.fasterxml.jackson.databind.JsonNode)
 
 @main("投票システム"){
 
@@ -6,32 +7,37 @@
   <table>
     <th>投票一覧</th>
 
+	 <p>番号: @stands
+
      <p>名前：@stands.findValuesAsText("standname")
 
      <p>役職：@stands.findValuesAsText("post")</p>
 
      <th><input type="button" onclick="location.href='/vote/allusers'" value="詳細"></th></p>
 
+
+
    </table>
 
 
     <h4>投票者</h4>
-   <form action="@routes.Application.addUser()" method="post">
-  <input type="text" name="name" class="form-control" placeholder="氏名を入力してください。">
+    <form action="@routes.Application.addUser" method="post">
 
+      <input type="text" name="name" class="form-control" placeholder="氏名を入力してください。">
 
-   <p>
-    <h4>投票対象</h4>
-	 <select name="standname">
-	  @for(stand <- stands.findValues("standname")){
-	  <option value="post">@stands.findValue("standname"),@stands.findValue("post")</option>
-	 }
-	   </select>
+      <h4>投票対象</h4>
 
-     </p>
+     <select name="stdn">
+
+      @for(stand <- stands.findValuesAsText("standname").toArray()){
+
+      <option value="@stand">
+
+           @stand
+           </option>
+	  }
+	  </select>
 
     <button type="submit" class="btn btn-primary">送信</button>
    </form>
-  </form>
-
 }
