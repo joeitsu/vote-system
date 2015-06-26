@@ -18,6 +18,7 @@ public class User extends Model {
 
     @Required
     public String name;
+
     public Long stand_id;
 
 
@@ -31,18 +32,22 @@ public class User extends Model {
     return Json.toJson(users);
     }
 
-    public static void create(Forms.newUser newUser) {
+    public static User create(String name,Long id) {
     User user = new User();
-    user.id = newUser.id;
-    user.name = newUser.name;
+    user.name = name ;
+    user.stand_id = id ;
     user.save();
+
+    return user;
 
     }
 
 
 
-}
 
 
 
 
+
+
+ }
