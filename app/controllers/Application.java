@@ -25,7 +25,9 @@ public class Application extends Controller {
     static Form<Forms.newUser> userForm = Form.form(Forms.newUser.class);
     static Form<Forms.StandForm> standForm = Form.form(Forms.StandForm.class);
 
-    public Result vote() {
+
+
+    public Result vote () {
         return redirect(routes.Application.newUser());
     }
 
@@ -35,24 +37,32 @@ public class Application extends Controller {
     }
 
     public Result newUser() {
-        return ok(vote.render(userForm));
+
+        return ok(vote.render(userForm,Stand.all()));
     }
 
     public Result addUser() {
         Form<Forms.newUser> filledForm = userForm.bindFromRequest();
-        User.create(filledForm.get());
+
+        Long id = Stand.checkId(filledForm.get().stdn);
+        String name = filledForm.get().name;
+
+        User.create(name,id);
 
         return redirect(routes.Application.allUsers());
     }
 
-    public Result allUsers() {
-        return ok(showUser.render(User.all()));
+    public Result allUsers () {
+        return ok(showUser.render(User.all(),Stand.all()));
     }
+
     /**変数でフォームに入力した内容を返す*/
     public Result addStand() {
 	    Form<Forms.StandForm>filledForm = standForm.bindFromRequest();
         JsonNode getInput = Stand.create(filledForm.get());
 
         return ok(seclet.render(getInput));
-    }
+   }
+
+
 }
