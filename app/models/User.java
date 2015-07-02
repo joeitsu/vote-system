@@ -57,4 +57,10 @@ public class User extends Model {
 
     }
 
+    public static User checkNM(String nm) {
+
+    	 return find.where().eq("name",nm).findUnique();
+
+   }
+
 }

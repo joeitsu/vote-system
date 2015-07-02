@@ -4,17 +4,11 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
-
 import play.api.mvc.*;
 import play.data.validation.Constraints.Required;
-
 import com.avaje.ebean.Model;
-
 import play.libs.Json;
-
 import com.fasterxml.jackson.databind.JsonNode;
-
 import controllers.*;
 
 @Entity

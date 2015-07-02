@@ -16,17 +16,33 @@ public class Forms extends Controller {
 
     	public String stdn;
     	public String name;
+
+
+       public String validate() {
+
+    	   if (User.checkNM(name) != null ){
+
+    		return " 再投票できません。";
+        }
+    		else if (name == null || name.length() == 0) {
+
+    		return " 氏名を入力してください。";
+
+    	}
+    	    return null;
 }
 
-    public static class StandForm {
+}
 
+     public static class StandForm {
 
         public String standname;
         public String post;
 
+
  }
 
-    public static class aboutUser {
+     public static class aboutUser {
 
        public String std;
 
