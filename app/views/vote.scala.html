@@ -1,43 +1,55 @@
 @(userForm: Form[Forms.newUser],
-stands: com.fasterxml.jackson.databind.JsonNode)
+stands: com.fasterxml.jackson.databind.JsonNode,
+users: com.fasterxml.jackson.databind.JsonNode)
+
+@import helper._
 
 @main("投票システム"){
 
-<h1>一覧</h1>
-  <table>
-    <th>投票一覧</th>
+    <form action="@routes.Application.addUser()" method="post">
 
-	 <p>番号: @stands
+    <h1>一覧</h1>
+     <p>立候者: @stands
+	  <p>投票者: @users
 
-     <p>名前：@stands.findValuesAsText("standname")
+       <h4>立候者</h4>
+        <p>@for(stand <- stands.elements()) {
 
-     <p>役職：@stands.findValuesAsText("post")</p>
+          @stand.get("standname").asText()
 
-     <th><input type="button" onclick="location.href='/vote/allusers'" value="詳細"></th></p>
-
-
-
-   </table>
+           <a href='/vote/aboutuser/@stand.get("id")'>詳細</a><br>
 
 
-    <h4>投票者</h4>
-    <form action="@routes.Application.addUser" method="post">
+  }
 
-      <input type="text" name="name" class="form-control" placeholder="氏名を入力してください。">
+    </p>
+       <h4>立候役職</h4>
+         <p>@for(stand <- stands.elements()) {
 
-      <h4>投票対象</h4>
+          @stand.get("post").asText()
 
-     <select name="stdn">
+    </p>
 
-      @for(stand <- stands.findValuesAsText("standname").toArray()){
+}
 
-      <option value="@stand">
+      <h4>投票者</h4>
 
-           @stand
-           </option>
+       <input type="text" name="name" class="form-control" placeholder="氏名を入力してください。">
+
+        <h4>投票対象</h4>
+
+        <select name="stdn">
+
+        @for(stand <- stands.findValuesAsText("standname").toArray()){
+
+       <option value="@stand">
+        @stand
+      </option>
 	  }
 	  </select>
 
     <button type="submit" class="btn btn-primary">送信</button>
+   <p><input type="button" onclick="location.href='/vote/allusers'" value="投票一覧"></p>
+   <p><input type="button" onclick="location.href='/'" value="TOP"></p>
    </form>
 }

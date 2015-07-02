@@ -24,6 +24,8 @@ public class Application extends Controller {
 
     static Form<Forms.newUser> userForm = Form.form(Forms.newUser.class);
     static Form<Forms.StandForm> standForm = Form.form(Forms.StandForm.class);
+    static Form<Forms.aboutUser> aboutForm = Form.form(Forms.aboutUser.class);
+
 
 
 
@@ -36,17 +38,24 @@ public class Application extends Controller {
         return ok(index.render(Stand.all(),standForm));
     }
 
+    /**modelのStandとUserのall機能を呼ぶ出す*/
     public Result newUser() {
 
-        return ok(vote.render(userForm,Stand.all()));
+        return ok(vote.render(userForm,Stand.all(),User.all()));
     }
 
+    /** newUserのフォームにstandnameとnameを格納し*/
     public Result addUser() {
         Form<Forms.newUser> filledForm = userForm.bindFromRequest();
 
+        /**格納したstandnameを取り出す、modelのStandのcheckId機能を呼び出す
+         * standnameとIDを変更する*/
         Long id = Stand.checkId(filledForm.get().stdn);
+
+        /**フォームに残してるnameを取り出す*/
         String name = filledForm.get().name;
 
+        /**modelのUserのcreate機能を呼ぶ出す*/
         User.create(name,id);
 
         return redirect(routes.Application.allUsers());
@@ -54,6 +63,18 @@ public class Application extends Controller {
 
     public Result allUsers () {
         return ok(showUser.render(User.all(),Stand.all()));
+    }
+
+    /**フォームからstandnameをIDに変更すること
+     * 代わりに直接にroutesを経由し、idをコントローラに渡す*/
+    public Result aboutUser (Long id) {
+//        Form<Forms.aboutUser> filledForm = aboutForm.bindFromRequest();
+//
+//        Long id = Stand.checkId(filledForm.get().std);
+//        JsonNode getInput = User.selectName(id);
+
+        /**modelのUserのselectName機能を呼ぶ出す*/
+       return ok(aboutUser.render(User.selectName(id)));
     }
 
     /**変数でフォームに入力した内容を返す*/
