@@ -16,14 +16,19 @@ public class Forms extends Controller {
     	public String stdn;
     	public String name;
 
-
-
-	}
+    }
 
     public static class StandForm{
 
         public String standname;
         public String post;
+
+        public String validate(){
+          	if(Stand.checkName(standname)!=null||standname.length()==0){
+          		return "立候補、また役職名が有効ではありません。";
+          	}
+          	return null;
+        }
     }
 
 

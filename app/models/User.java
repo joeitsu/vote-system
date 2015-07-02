@@ -25,6 +25,8 @@ public class User extends Model {
 
     public static Finder<Long,User>find = new Finder(Long.class, User.class);
 
+
+
     public static JsonNode all() {
 
     List<User> users = find.all();
@@ -36,18 +38,29 @@ public class User extends Model {
     User user = new User();
     user.name = name ;
     user.stand_id = id ;
+
     user.save();
 
     return user;
-
+    }
+    public static int secletnumber(Long stand_id) {
+    	int number = find.where().eq("stand_id",stand_id).findRowCount();
+    	return number;
+    }
+    public static JsonNode selectName(Long id) {
+    	List<User> ass =find.where().eq("stand_id",id).findList();
+    	return Json.toJson(ass);
     }
 
 
 
+}
 
 
 
 
 
 
- }
+
+
+

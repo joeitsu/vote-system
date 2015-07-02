@@ -49,6 +49,13 @@ public class Stand extends Model {
 
     	return stand.id;
     }
+    public static Stand checkName(String name){
+        return find.where().eq("standname", name).findUnique();
+    }
+
+    public static Stand authenticate(String standname,String post){
+        return find.where().eq("standname", standname).eq("post", post).findUnique();
+    }
 
 
 }

@@ -12,6 +12,7 @@ stands: com.fasterxml.jackson.databind.JsonNode)
    <tr>
 	@users
     <p>投票者：@users.findValuesAsText("name")</p>
+
     <p>投票対象：
     @for(node <- stands.elements()){
 	  <p>@node.findValuesAsText("standname")</p>

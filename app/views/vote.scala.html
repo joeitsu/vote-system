@@ -1,43 +1,51 @@
-@(userForm: Form[Forms.newUser],
+@(users:com.fasterxml.jackson.databind.JsonNode,
 stands: com.fasterxml.jackson.databind.JsonNode)
+
+
 
 @main("投票システム"){
 
-<h1>一覧</h1>
-  <table>
-    <th>投票一覧</th>
+<div class = "container">
+	<h1>投票一覧</h1>
+<table class = "table">
+  <thead>
+	<tr>
+	  <th>番号: </th>
 
-	 <p>番号: @stands
+      <th>名前：</th>
 
-     <p>名前：@stands.findValuesAsText("standname")
+      <th>役職：</th>
 
-     <p>役職：@stands.findValuesAsText("post")</p>
+      <th>投票数:</th>
+     </tr>
+       <tbody>
+    	@for(stand <- stands.elements()){
+    	<tr>
+		<td>@stand.findValuesAsText("id")</td>
+		<td>@stand.findValuesAsText("standname")</td>
+		<td>@stand.findValuesAsText("post")</td>
+		<td>@User.secletnumber(stand.findValue("id").asLong())</td>
 
-     <th><input type="button" onclick="location.href='/vote/allusers'" value="詳細"></th></p>
+     <td><a href='@routes.Application.aboutUsers(stand.get("id").asLong())' class="btn btn-success">詳細</a></td>
+      }
+    </tbody>
+   </thead>
+</table>
 
-
-
-   </table>
-
-
-    <h4>投票者</h4>
-    <form action="@routes.Application.addUser" method="post">
-
+	<h4>投票者</h4>
+<form action="@routes.Application.addUser" method="post">
       <input type="text" name="name" class="form-control" placeholder="氏名を入力してください。">
 
-      <h4>投票対象</h4>
+	<h4>投票対象</h4>
 
-     <select name="stdn">
+	<select name="stdn">
+		@for(stand <- stands.findValuesAsText("standname").toArray()){
+		<option value="@stand">
+		@stand
+		</option>
+		}
+	</select>
 
-      @for(stand <- stands.findValuesAsText("standname").toArray()){
-
-      <option value="@stand">
-
-           @stand
-           </option>
-	  }
-	  </select>
-
-    <button type="submit" class="btn btn-primary">送信</button>
-   </form>
+	<button type="submit" class="btn btn-primary">送信</button>
+</form>
 }
