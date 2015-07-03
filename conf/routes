@@ -4,14 +4,17 @@
 
 # Home page
 
-GET     /vote/                           controllers.Application.vote()
+
 
 # Users
 
-GET     /vote/add                       controllers.Application.newUser()
+GET     /vote/                          controllers.Application.newUser()
 POST    /vote/adduser                   controllers.Application.addUser()
 GET     /vote/allusers                  controllers.Application.allUsers()
+
 GET     /vote/allusers/:id              controllers.Application.aboutUsers(id:Long)
+
+
 # Stand
 
 GET     /                                controllers.Application.index()

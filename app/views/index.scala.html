@@ -1,5 +1,5 @@
-@(form: Form[Forms.StandForm])
-
+@(stands: com.fasterxml.jackson.databind.JsonNode,
+form: Form[Forms.StandForm])
 
 @main("立候補") {
   <h1>立候補</h1>
@@ -14,13 +14,6 @@
         }
     <td>立候氏名</td>
     <input type="text" name="standname">
-
-<style type="text/css">
-input, select, textarea {
-background-color: #87CEFA;
-}
-</style><br>
-
 
     <td>立候役職</td>
     <select name="post">

@@ -1,15 +1,12 @@
-@(users:com.fasterxml.jackson.databind.JsonNode,
-stands: com.fasterxml.jackson.databind.JsonNode)
-
+@(userForm: Form[Forms.newUser],
+stands: com.fasterxml.jackson.databind.JsonNode,
+users: com.fasterxml.jackson.databind.JsonNode)
 
 
 @main("投票システム"){
 
-<div class = "container">
-	<h1>投票一覧</h1>
-<table class = "table">
-  <thead>
-	<tr>
+<h1>投票一覧</h1>
+
 	  <th>番号: </th>
 
       <th>名前：</th>
@@ -17,35 +14,37 @@ stands: com.fasterxml.jackson.databind.JsonNode)
       <th>役職：</th>
 
       <th>投票数:</th>
-     </tr>
-       <tbody>
     	@for(stand <- stands.elements()){
-    	<tr>
+    	<tr><br>
 		<td>@stand.findValuesAsText("id")</td>
 		<td>@stand.findValuesAsText("standname")</td>
 		<td>@stand.findValuesAsText("post")</td>
 		<td>@User.secletnumber(stand.findValue("id").asLong())</td>
 
-     <td><a href='@routes.Application.aboutUsers(stand.get("id").asLong())' class="btn btn-success">詳細</a></td>
-      }
-    </tbody>
-   </thead>
-</table>
+      <td><a href='@routes.Application.aboutUsers(stand.get("id").asLong())' class="btn btn-success">詳細</a></td>
+       }
+
 
 	<h4>投票者</h4>
-<form action="@routes.Application.addUser" method="post">
-      <input type="text" name="name" class="form-control" placeholder="氏名を入力してください。">
-
+  <form action="@routes.Application.addUser" method="post">
+       <input type="text" name="name" class="form-control" placeholder="氏名を入力してください。">
+         @if(userForm.hasGlobalErrors) {
+         <color class="text-danger">
+         @userForm.globalError.message
+         </color>
+         }
 	<h4>投票対象</h4>
-
 	<select name="stdn">
 		@for(stand <- stands.findValuesAsText("standname").toArray()){
 		<option value="@stand">
 		@stand
 		</option>
 		}
-	</select>
+	 </select>
 
-	<button type="submit" class="btn btn-primary">送信</button>
-</form>
-}
+      <button type="submit" class="btn btn-primary">送信</button>
+   <p><input type="button" onclick="location.href='/vote/allusers'" value="投票一覧"></p>
+   <p><input type="button" onclick="location.href='/'" value="TOP"></p>
+   </form>
+   }
+

@@ -5,22 +5,26 @@ stands: com.fasterxml.jackson.databind.JsonNode)
 
     <h1>投票一覧</h1>
 
-	@stands
-    <p>立候氏名：@stands.findValuesAsText("standname")</p>
-    <p>立候役職：@stands.findValuesAsText("post")</p>
+    <h4><p>立候氏名：</h4>
+     <p>@for(node <- stands.elements()){
+      @node.get("standname").asText()</p>
+    }
+
+    <h4><p>立候役職：</h4>
+     <p>@for(node <- stands.elements()){
+      @node.get("post").asText()</p>
+    }
+
    <table>
    <tr>
-	@users
-    <p>投票者：@users.findValuesAsText("name")</p>
+ <h4><p>投票者：</h4>
+    <p>@users.findValuesAsText("name")</p>
 
     <p>投票対象：
     @for(node <- stands.elements()){
 	  <p>@node.findValuesAsText("standname")</p>
 	  }
-	</p>
-     </p>
+	   <p><input type="button" onclick="location.href='/vote/'" value="一覧"></p>
     </tr>
   </table>
-</div>
-
 }

@@ -1,0 +1,15 @@
+@(users: com.fasterxml.jackson.databind.JsonNode)
+
+
+@main("投票システム"){
+
+    <h1>投票者一覧</h1>
+    <p>@for(node <- users.elements()){
+
+     @node.get("name").asText()
+     </p>
+ }
+
+  <p><input type="button" onclick="location.href='/vote/'" value="一覧"></p>
+}
+
