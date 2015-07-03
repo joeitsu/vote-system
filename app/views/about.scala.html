@@ -1,0 +1,6 @@
+@(users: com.fasterxml.jackson.databind.JsonNode)
+
+@main("投票詳細"){
+<th>投票者：</th>
+@users.findValuesAsText("name")
+}
