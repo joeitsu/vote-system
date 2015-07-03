@@ -1,20 +1,29 @@
 @(stands: com.fasterxml.jackson.databind.JsonNode,
 form: Form[Forms.StandForm])
 
-
 @main("立候補") {
   <h1>立候補</h1>
   <form action="@routes.Application.addStand()" method="post">
-    <p>立候氏名</p>
+
+   @if(form.hasGlobalErrors){
+   		<font color ="#FF0000">
+           <p class="text-danger">
+             @form.globalError.message
+           </p>
+        </font>
+        }
+    <td>立候氏名</td>
     <input type="text" name="standname">
 
-    <p>立候役職</p>
+    <td>立候役職</td>
     <select name="post">
       <option value ="会長">会長</option>
       <option value="副会長">副会長</option>
       <option value="理事">理事</option>
-    </select>
+    </select><br>
 
-    <button type="submit">作成</button>
+
+<button type="submit" class="btn btn-info">作成</button>
+
   </form>
 }

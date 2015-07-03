@@ -23,77 +23,65 @@ public class Application extends Controller {
 
 	static Form<Forms.newUser> userForm = Form.form(Forms.newUser.class);
 	static Form<Forms.StandForm> standForm = Form.form(Forms.StandForm.class);
-	static Form<Forms.aboutUser> aboutForm = Form.form(Forms.aboutUser.class);
+
+    /** indexへのレンダリング */
+    public Result index() {
+        return ok(index.render(Stand.all(),standForm));
+    }
 
 	public Result vote() {
 		return redirect(routes.Application.newUser());
 	}
 
-	/** indexへのレンダリング */
-	public Result index() {
-		return ok(index.render(Stand.all(), standForm));
-	}
-
 	/** modelのStandとUserのall機能を呼ぶ出す */
-	public Result newUser() {
-
-		return ok(vote.render(userForm, Stand.all(), User.all()));
-	}
+    public Result newUser() {
+        return ok(vote.render(userForm,Stand.all(),User.all()));
+    }
 
 	/** newUserのフォームにstandnameとnameを格納し */
 	public Result addUser() {
+
 		Form<Forms.newUser> filledForm = userForm.bindFromRequest();
 
 		if (filledForm.hasErrors()) {
 
 			return badRequest(vote.render(filledForm, Stand.all(), User.all()));
+
 		} else {
 
-			/**
-			 * 格納したstandnameを取り出す、modelのStandのcheckId機能を呼び出す standnameとIDを変更する
-			 */
+   /**格納したstandnameを取り出す、modelのStandのcheckId機能を呼び出す standnameとIDを変更する */
 			Long id = Stand.checkId(filledForm.get().stdn);
-
 			/** フォームに残してるnameを取り出す */
 			String name = filledForm.get().name;
-
 			/** modelのUserのcreate機能を呼ぶ出す */
 			User.create(name, id);
-
 			return redirect(routes.Application.allUsers());
-
-		}
+        }
 	}
 
-	public Result allUsers() {
-		return ok(showUser.render(User.all(), Stand.all()));
-	}
+    public Result aboutUsers(Long id) {
 
-	/**
-	 * フォームからstandnameをIDに変更すること 代わりに直接にroutesを経由し、idをコントローラに渡す
-	 */
-	public Result aboutUser(Long id) {
-		// Form<Forms.aboutUser> filledForm = aboutForm.bindFromRequest();
-		//
-		// Long id = Stand.checkId(filledForm.get().std);
-		// JsonNode getInput = User.selectName(id);
+    	return ok(about.render(User.selectName(id)));
+    }
 
-		/** modelのUserのselectName機能を呼ぶ出す */
-		return ok(aboutUser.render(User.selectName(id)));
-	}
+    public Result allUsers () {
 
-	/** 変数でフォームに入力した内容を返す */
-	public Result addStand() {
-		Form<Forms.StandForm> filledForm = standForm.bindFromRequest();
+        return ok(showUser.render(User.all(),Stand.all()));
+    }
 
-		if (filledForm.hasErrors()) {
-			return badRequest(index.render(Stand.all(), standForm));
-		} else {
+    /**変数でフォームに入力した内容を返す*/
+    public Result addStand() {
 
-			JsonNode getInput = Stand.create(filledForm.get());
+	    Form<Forms.StandForm>filledForm = standForm.bindFromRequest();
 
-			return ok(seclet.render(getInput));
-		}
-	}
+	    if (filledForm.hasErrors()) {
+            return badRequest(index.render(Stand.all(),filledForm));
+	    }else {
+	    	JsonNode getInput = Stand.create(filledForm.get());
 
+            return ok(seclet.render(getInput));
+        }
+    }
 }
+
+

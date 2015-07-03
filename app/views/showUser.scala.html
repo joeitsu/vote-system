@@ -4,7 +4,6 @@ stands: com.fasterxml.jackson.databind.JsonNode)
  @main("投票システム"){
 
     <h1>投票一覧</h1>
-	@users
 
     <h4><p>立候氏名：</h4>
      <p>@for(node <- stands.elements()){
@@ -18,22 +17,14 @@ stands: com.fasterxml.jackson.databind.JsonNode)
 
    <table>
    <tr>
+ <h4><p>投票者：</h4>
+    <p>@users.findValuesAsText("name")</p>
 
-    <h4><p>投票者：</h4>
-     <p>@for(node <- users.elements()){
-       @node.get("name").asText()</p>
-    }
-
-    <h4><p>投票対象：</h4>
-     <p> @for(node <- stands.elements()){
-      @node.get("standname").asText()</p>
-    }
-
+    <p>投票対象：
+    @for(node <- stands.elements()){
+	  <p>@node.findValuesAsText("standname")</p>
+	  }
 	   <p><input type="button" onclick="location.href='/vote/'" value="一覧"></p>
-	  </p>
-     </p>
     </tr>
   </table>
-</div>
-
 }

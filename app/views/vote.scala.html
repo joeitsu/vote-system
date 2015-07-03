@@ -2,67 +2,49 @@
 stands: com.fasterxml.jackson.databind.JsonNode,
 users: com.fasterxml.jackson.databind.JsonNode)
 
-@import helper._
 
 @main("投票システム"){
-   <style>
-	   color{
-	  color:#FF0000;
-	 }
 
-   </style>
-    <form action="@routes.Application.addUser()" method="post">
+<h1>投票一覧</h1>
 
-    <h1>一覧</h1>
-     <p>立候者: @stands
-	  <p>投票者: @users
+	  <th>番号: </th>
 
-       <h4>立候者</h4>
-        <p>@for(stand <- stands.elements()) {
+      <th>名前：</th>
 
-          @stand.get("standname").asText()
+      <th>役職：</th>
 
-           <a href='/vote/aboutuser/@stand.get("id")'>詳細</a><br>
+      <th>投票数:</th>
+    	@for(stand <- stands.elements()){
+    	<tr><br>
+		<td>@stand.findValuesAsText("id")</td>
+		<td>@stand.findValuesAsText("standname")</td>
+		<td>@stand.findValuesAsText("post")</td>
+		<td>@User.secletnumber(stand.findValue("id").asLong())</td>
+
+      <td><a href='@routes.Application.aboutUsers(stand.get("id").asLong())' class="btn btn-success">詳細</a></td>
+       }
 
 
-  }
-
-    </p>
-       <h4>立候役職</h4>
-         <p>@for(stand <- stands.elements()) {
-
-          @stand.get("post").asText()
-
-    </p>
-
-}
-
-      <h4>投票者</h4>
-
+	<h4>投票者</h4>
+  <form action="@routes.Application.addUser" method="post">
        <input type="text" name="name" class="form-control" placeholder="氏名を入力してください。">
-
-		@if(userForm.hasGlobalErrors) {
+         @if(userForm.hasGlobalErrors) {
          <color class="text-danger">
          @userForm.globalError.message
          </color>
          }
+	<h4>投票対象</h4>
+	<select name="stdn">
+		@for(stand <- stands.findValuesAsText("standname").toArray()){
+		<option value="@stand">
+		@stand
+		</option>
+		}
+	 </select>
 
-
-
-        <h4>投票対象</h4>
-
-        <select name="stdn">
-
-        @for(stand <- stands.findValuesAsText("standname").toArray()){
-
-       <option value="@stand">
-        @stand
-      </option>
-	  }
-	  </select>
-
-    <button type="submit" class="btn btn-primary">送信</button>
+      <button type="submit" class="btn btn-primary">送信</button>
    <p><input type="button" onclick="location.href='/vote/allusers'" value="投票一覧"></p>
    <p><input type="button" onclick="location.href='/'" value="TOP"></p>
    </form>
-}
+   }
+

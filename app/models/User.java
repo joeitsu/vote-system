@@ -22,8 +22,8 @@ public class User extends Model {
     public Long stand_id;
 
 
-
     public static Finder<Long,User>find = new Finder(Long.class, User.class);
+
 
     public static JsonNode all() {
 
@@ -37,30 +37,30 @@ public class User extends Model {
     User user = new User();
     user.name = name ;
     user.stand_id = id ;
+
     user.save();
 
     return user;
-
     }
-
+    public static int secletnumber(Long stand_id) {
+    	int number = find.where().eq("stand_id",stand_id).findRowCount();
+    	return number;
+    }
     /**Json型を戻り値として、DBでstand_idからnameを取り出す*/
-    public static JsonNode selectName(Long standid){
+    public static JsonNode selectName(Long id) {
     	//System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
     	//System.out.println(standid);
 
     	/**一つstand_idに対して複数のnameである、nameを配列として,
     	 * stand_idを使って、DBにnameを検索*/
-    	List<User> l = find.where().eq("stand_id",standid).findList();
-
-    	/**Json型を戻る*/
-    	return Json.toJson(l);
-
+    	List<User> ass =find.where().eq("stand_id",id).findList();
+    	return Json.toJson(ass);
     }
 
     public static User checkNM(String nm) {
 
     	 return find.where().eq("name",nm).findUnique();
-
    }
 
 }
+

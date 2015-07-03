@@ -11,7 +11,9 @@
 GET     /vote/                          controllers.Application.newUser()
 POST    /vote/adduser                   controllers.Application.addUser()
 GET     /vote/allusers                  controllers.Application.allUsers()
-GET     /vote/aboutuser/:id             controllers.Application.aboutUser(id : Long)
+
+GET     /vote/allusers/:id              controllers.Application.aboutUsers(id:Long)
+
 
 # Stand
 
