@@ -24,9 +24,10 @@ public class Forms extends Controller {
 
     		return " 再投票できません。";
         }
-    		else if (name == null || name.length() == 0) {
+    		else if (name == null || name.length() == 0 || name.trim().isEmpty()) {
 
     		return " 氏名を入力してください。";
+
 
     	}
     	    return null;

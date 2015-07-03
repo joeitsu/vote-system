@@ -1,68 +1,63 @@
-@(userForm: Form[Forms.newUser],
-stands: com.fasterxml.jackson.databind.JsonNode,
-users: com.fasterxml.jackson.databind.JsonNode)
-
+@(userForm: Form[Forms.newUser], stands:
+com.fasterxml.jackson.databind.JsonNode, users:
+com.fasterxml.jackson.databind.JsonNode)
 @import helper._
 
 @main("投票システム"){
-   <style>
-	   color{
-	  color:#FF0000;
-	 }
-
-   </style>
-    <form action="@routes.Application.addUser()" method="post">
-
-    <h1>一覧</h1>
-     <p>立候者: @stands
-	  <p>投票者: @users
-
-       <h4>立候者</h4>
-        <p>@for(stand <- stands.elements()) {
-
-          @stand.get("standname").asText()
-
-           <a href='/vote/aboutuser/@stand.get("id")'>詳細</a><br>
-
-
-  }
-
-    </p>
-       <h4>立候役職</h4>
-         <p>@for(stand <- stands.elements()) {
-
-          @stand.get("post").asText()
-
-    </p>
-
+<style>
+color {
+	color: #FF0000;
 }
+</style>
+<form action="@routes.Application.addUser()" method="post">
 
-      <h4>投票者</h4>
+	<h1>一覧</h1>
+	<table>
+		<tr>
+			<td>
+				<h4>立候者</h4> @for(stand <- stands.elements()) {
 
-       <input type="text" name="name" class="form-control" placeholder="氏名を入力してください。">
+				@stand.get("standname").asText() <br>}
 
-		@if(userForm.hasGlobalErrors) {
-         <color class="text-danger">
-         @userForm.globalError.message
-         </color>
-         }
+			</td>
+			<td>
+				<h4>立候役職</h4> @for(stand <- stands.elements()) {
+
+				@stand.get("post").asText() <br>}
+			</td>
+			<td>
+				<h4>詳細一覧</h4> @for(stand <- stands.elements()) { <a
+				href='/vote/aboutuser/@stand.get("id")'>詳細</a><br>}
+			</td>
+		</tr>
+	</table>
+
+
+	<h4>投票者</h4>
+
+	<input type="text" name="name" class="form-control"
+		placeholder="氏名を入力してください。"> @if(userForm.hasGlobalErrors) {
+	<color class="text-danger"> @userForm.globalError.message </color>
+	}
 
 
 
-        <h4>投票対象</h4>
+	<h4>投票対象</h4>
 
-        <select name="stdn">
+	<select name="stdn"> @for(stand <-
+		stands.findValuesAsText("standname").toArray()){
 
-        @for(stand <- stands.findValuesAsText("standname").toArray()){
+		<option value="@stand">@stand</option> }
+	</select>
 
-       <option value="@stand">
-        @stand
-      </option>
-	  }
-	  </select>
-
-    <button type="submit" class="btn btn-primary">送信</button>
-   <p><input type="button" onclick="location.href='/vote/allusers'" value="投票一覧"></p>
-   <p><input type="button" onclick="location.href='/'" value="TOP"></p>
-   </form>
+	<button type="submit" class="btn">送信</button>
+	<p>
+		<input type="button" onclick="location.href='/vote/allusers'"
+			value="投票一覧">
+	</p>
+	<p>
+		<input type="button" onclick="location.href='/'" value="TOP"
+			class="btn">
+	</p>
+</form>
 }

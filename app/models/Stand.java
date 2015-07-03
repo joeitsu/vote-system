@@ -49,4 +49,6 @@ public class Stand extends Model {
     	return stand.id;
     }
 
+
+
     }

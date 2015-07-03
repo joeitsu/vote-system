@@ -11,7 +11,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import controllers.*;
-
+import play.mvc.Http.Request;
+import play.mvc.Http.*;
+import play.mvc.Http.RequestHeader;
 import views.html.*;
 import play.data.Form;
 import models.*;
@@ -94,6 +96,29 @@ public class Application extends Controller {
 
 			return ok(seclet.render(getInput));
 		}
+	}
+
+	public Result ip() {
+
+		String remote = request().remoteAddress();
+
+		Context req = Context.current();
+
+		//String remote_address = req.getHeader("x-forwarded-for");
+
+	    String remoteaddress = request().remoteAddress() ;
+
+	    String user_agent = request().getHeader("User-Agent");
+        return ok(remote);
+	   //return ok(ip.render(remote_address,remoteaddress,user_agent));
+
+	/*	Request r = new Request();
+		String remote = r.remoteAddress();
+		return ok(ip.render(remote));
+ */
+
+
+
 	}
 
 }

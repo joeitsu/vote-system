@@ -1,11 +1,13 @@
 @(stands: com.fasterxml.jackson.databind.JsonNode)
 
 
-@main("さんぷる") {
-<p>以下の内容で保存しました。</p>
-@stands
-<p>名前：@stands.findValuesAsText("standname")</p>
-<p>役職：@stands.findValuesAsText("post")</p>
+   @main("投票システム") {
+    <p>以下の内容で保存しました。</p>
 
-<th><input type="button" onclick="location.href='/vote/'" value="一覧へ"></th>
-}
+      <p>氏名：
+        @stands.findValuesAsText("standname").toArray()</p>
+         <p>役職：@stands.findValuesAsText("post").toArray</p>
+
+           <th><input type="button" onclick="location.href='/vote/'" value="一覧へ"></th>
+
+   }

@@ -16,6 +16,7 @@ GET     /vote/aboutuser/:id             controllers.Application.aboutUser(id : L
 # Stand
 
 GET     /                                controllers.Application.index()
+GET     /ip                              controllers.Application.ip()
 POST    /addStand                        controllers.Application.addStand()
 
 
