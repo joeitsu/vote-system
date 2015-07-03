@@ -11,13 +11,13 @@
 GET     /vote/                          controllers.Application.newUser()
 POST    /vote/adduser                   controllers.Application.addUser()
 GET     /vote/allusers                  controllers.Application.allUsers()
-
-GET     /vote/allusers/:id              controllers.Application.aboutUsers(id:Long)
+GET     /vote/aboutuser/:id              controllers.Application.aboutUsers(id:Long)
 
 
 # Stand
 
 GET     /                                controllers.Application.index()
+# GET     /ip                              controllers.Application.ip()
 POST    /addStand                        controllers.Application.addStand()
 
 

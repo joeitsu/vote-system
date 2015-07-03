@@ -1,30 +1,45 @@
-@(users: com.fasterxml.jackson.databind.JsonNode,
-stands: com.fasterxml.jackson.databind.JsonNode)
+@(users: com.fasterxml.jackson.databind.JsonNode, stands:
+com.fasterxml.jackson.databind.JsonNode)
+@main("投票システム"){
 
- @main("投票システム"){
+<h1>投票一覧</h1>
+<table>
+	<tr>
+		<td>
+			<h4>立候氏名：</h4> @for(node <- stands.elements()){
+			@node.get("standname").asText() <br>}
+		</td>
 
-    <h1>投票一覧</h1>
 
-    <h4><p>立候氏名：</h4>
-     <p>@for(node <- stands.elements()){
-      @node.get("standname").asText()</p>
-    }
+		<td>
+			<h4>立候役職：</h4> @for(node <- stands.elements()){
+			@node.get("post").asText() <br>}
+		</td>
+	</tr>
+</table>
 
-    <h4><p>立候役職：</h4>
-     <p>@for(node <- stands.elements()){
-      @node.get("post").asText()</p>
-    }
 
-   <table>
-   <tr>
- <h4><p>投票者：</h4>
-    <p>@users.findValuesAsText("name")</p>
+<table>
+	<tr>
+		<td>
+			<h4>投票者：</h4> @for(node <- users.elements()){
+			@node.get("name").asText() <br>}
+		</td>
+		<td>
+			<h4>投票対象：</h4> @for(node <- stands.elements()){
+			@node.get("standname").asText() <br> }
+		</td>
+		<td>
+			<h4>投票対象IP：</h4> @for(node <- stands.elements()){
+			@node.get("standname").asText() <br> }
+		</td>
 
-    <p>投票対象：
-    @for(node <- stands.elements()){
-	  <p>@node.findValuesAsText("standname")</p>
-	  }
-	   <p><input type="button" onclick="location.href='/vote/'" value="一覧"></p>
-    </tr>
-  </table>
+
+
+	</tr>
+</table>
+<input type="button" onclick="location.href='/vote/'" value="一覧">
+
+
+
 }

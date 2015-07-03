@@ -12,19 +12,29 @@ import play.db.ebean.Model;
 
 public class Forms extends Controller {
 
-    public static class newUser {
+    public static class newUser{
 
     	public String stdn;
     	public String name;
         public String validate() {
     	   if (User.checkNM(name) != null ){
     		return " 再投票できません。";
-           }else if (name == null || name.length() == 0) {
-    		return " 氏名を入力してください。";
-    	   }
-    	    return null;
+
         }
+    		else if (name == null || name.length() == 0 || name.trim().isEmpty()) {
+
+
+    		return " 氏名を入力してください。";
+
+    	   }
+    	   return null;
+        }
+
+
+
     }
+
+
 
      public static class StandForm {
 

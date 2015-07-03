@@ -1,29 +1,39 @@
-@(stands: com.fasterxml.jackson.databind.JsonNode,
-form: Form[Forms.StandForm])
-
-@main("立候補") {
-  <h1>立候補</h1>
-  <form action="@routes.Application.addStand()" method="post">
-
-   @if(form.hasGlobalErrors){
-   		<font color ="#FF0000">
-           <p class="text-danger">
-             @form.globalError.message
-           </p>
-        </font>
-        }
-    <td>立候氏名</td>
-    <input type="text" name="standname">
-
-    <td>立候役職</td>
-    <select name="post">
-      <option value ="会長">会長</option>
-      <option value="副会長">副会長</option>
-      <option value="理事">理事</option>
-    </select><br>
+@(stands: com.fasterxml.jackson.databind.JsonNode, form:
+Form[Forms.StandForm])
 
 
-<button type="submit" class="btn btn-info">作成</button>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<header>
+	@main("投票システム") {
+	<h1>立候補</h1>
+</header>
+<form action="@routes.Application.addStand()" method="post">
 
-  </form>
+	@if(form.hasGlobalErrors){ <font color="#FF0000">
+		<p class="text-danger">@form.globalError.message</p>
+	</font> }
+
+
+
+	<p>立候氏名</p>
+	<input type="text" name="standname">
+
+
+
+	<p>立候役職</p>
+	<select name="post">
+		<option value="会長">会長</option>
+		<option value="副会長">副会長</option>
+
+		<option value="理事">理事</option>
+
+	</select>
+
+	<button type="submit" class="btn">作成</button>
+
+</form>
+
+
+
 }
