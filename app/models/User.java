@@ -32,6 +32,7 @@ public class User extends Model {
     return Json.toJson(users);
     }
 
+    /**コントローラ側設定したLong ID,String Nameを引数として、DBに保存する*/
     public static User create(String name,Long id) {
     User user = new User();
     user.name = name ;
@@ -42,12 +43,24 @@ public class User extends Model {
 
     }
 
+    /**Json型を戻り値として、DBでstand_idからnameを取り出す*/
+    public static JsonNode selectName(Long standid){
+    	//System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+    	//System.out.println(standid);
 
+    	/**一つstand_idに対して複数のnameである、nameを配列として,
+    	 * stand_idを使って、DBにnameを検索*/
+    	List<User> l = find.where().eq("stand_id",standid).findList();
 
+    	/**Json型を戻る*/
+    	return Json.toJson(l);
 
+    }
 
+    public static User checkNM(String nm) {
 
+    	 return find.where().eq("name",nm).findUnique();
 
+   }
 
-
- }
+}
